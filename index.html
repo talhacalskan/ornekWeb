@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdullah Talha Çalışkan - Portfolio</title>
+    <!-- Artık harici CDN'e gerek yok, tüm stiller buraya taşındı! --><style>
+        /* Inter fontunu ayarlıyoruz (Hala harici, bu olmazsa varsayılan font kullanılır) */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        /* Yeni Stil: Yumuşak Kaydırma Animasyonu (Tüm sayfa içi linkler için) */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Tema Renkleri */
+        :root {
+            --navy-dark: #0A192F; /* Derin Lacivert Arka Plan */
+            --cyan-light: #64FFDA; /* Neon Vurgu Rengi */
+            --text-primary: #CCD6F6; /* Ana Metin Rengi */
+            --text-secondary: #8892B0; /* İkincil Metin Rengi */
+        }
+
+        /* ----- GENEL STİLLER (Tailwind Karşılıkları) ----- */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--navy-dark);
+            color: var(--text-secondary); /* Varsayılan metin rengi */
+            min-height: 100vh;
+            margin: 0;
+            line-height: 1.5;
+            overflow-x: hidden; /* Yatay kaydırmayı engellemek için */
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--text-primary);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ----- UTILITY SINIFLARI (Tailwind Karşılıkları) ----- */
+        .flex { display: flex; }
+        .justify-end { justify-content: flex-end; }
+        .justify-center { justify-content: center; }
+        .items-center { align-items: center; }
+        .fixed { position: fixed; }
+        .top-0 { top: 0; }
+        .w-full { width: 100%; }
+        .bg-transparent { background-color: transparent; }
+        .z-50 { z-index: 50; }
+        .hidden { display: none; }
+        .md\:flex {
+            /* Tailwind'deki md:breakpoint'i taklit ediyoruz */
+        }
+        .space-x-8 > * + * { margin-left: 2rem; }
+        .text-sm { font-size: 0.875rem; }
+        .text-white { color: white; }
+        .hover\:text-cyan-400:hover { color: var(--cyan-light); opacity: 0.8; }
+        .transition { transition: all 0.3s ease; }
+        .duration-300 { transition-duration: 300ms; }
+        .p-6 { padding: 1.5rem; }
+        .min-h-screen { min-height: 100vh; }
+        .pt-24 { padding-top: 6rem; }
+        .pb-12 { padding-bottom: 3rem; }
+        .p-4 { padding: 1rem; }
+        .text-center { text-align: center; }
+        .md\:text-left { text-align: left; }
+        .max-w-4xl { max-width: 56rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .w-full { width: 100%; }
+        .text-xl { font-size: 1.25rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .font-mono { font-family: monospace; }
+        .text-6xl { font-size: 3.75rem; }
+        .font-extrabold { font-weight: 800; }
+        .leading-tight { line-height: 1.25; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .block { display: block; }
+        .text-3xl { font-size: 1.875rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .inline-block { display: inline-block; }
+        .px-8 { padding-left: 2rem; padding-right: 2rem; }
+        .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+        .rounded-md { border-radius: 0.375rem; }
+        .text-lg { font-size: 1.125rem; }
+        .font-medium { font-weight: 500; }
+        .mt-4 { margin-top: 1rem; }
+        .py-24 { padding-top: 6rem; padding-bottom: 6rem; }
+        .font-bold { font-weight: 700; }
+        .mb-12 { margin-bottom: 3rem; }
+        .mr-3 { margin-right: 0.75rem; }
+        .ml-4 { margin-left: 1rem; }
+        .h-px { height: 1px; }
+        .flex-grow { flex-grow: 1; }
+        .opacity-30 { opacity: 0.3; }
+        .text-lg { font-size: 1.125rem; }
+        .space-y-4 > * + * { margin-top: 1rem; }
+        .space-y-12 > * + * { margin-top: 3rem; }
+        .p-6 { padding: 1.5rem; }
+        .rounded-xl { border-radius: 0.75rem; }
+        .hover\:bg-gray-800\/50:hover { background-color: rgba(31, 41, 55, 0.5); }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .bg-gray-800\/30 { background-color: rgba(31, 41, 55, 0.3); } /* Koyu arka planın hafif şeffafı */
+        .text-sm { font-size: 0.875rem; }
+        .gap-2 { gap: 0.5rem; }
+        .flex-wrap { flex-wrap: wrap; }
+        .p-1 { padding: 0.25rem; }
+        .bg-gray-700 { background-color: #374151; }
+        .pt-8 { padding-top: 2rem; }
+        .px-10 { padding-left: 2.5rem; padding-right: 2.5rem; }
+        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        .bg-cyan-light { background-color: var(--cyan-light); }
+        .text-gray-900 { color: #111827; }
+        .hover\:bg-cyan-400:hover { background-color: #2DD4BF; }
+        
+        /* Büyük ekranlar için Medya Sorguları (Minimal) */
+        @media (min-width: 768px) {
+            .md\:flex { display: flex; }
+            .md\:text-left { text-align: left; }
+            .text-7xl { font-size: 4.5rem; }
+            .text-4xl { font-size: 2.25rem; }
+        }
+
+        /* ----- ÖZEL ANİMASYON STİLLERİ ----- */
+
+        /* Hero Başlığı Animasyonu */
+        .neon-text {
+            color: var(--cyan-light);
+            text-shadow: 0 0 5px rgba(100, 255, 218, 0.6), 0 0 10px rgba(100, 255, 218, 0.4);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        /* --- Mevcut Dalgalı Arkaplan Animasyonu (Alttaki) --- */
+        .wave-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+            z-index: 0;
+            opacity: 0.15;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100px;
+            background: var(--cyan-light);
+            animation: wave-move 15s linear infinite;
+            border-radius: 50% 50% 0 0;
+            transform: translate3d(-50%, 0, 0);
+        }
+
+        .wave:nth-child(2) {
+            background: var(--text-primary);
+            animation: wave-move 18s linear infinite reverse;
+            opacity: 0.7;
+            height: 80px;
+        }
+        
+        .wave:nth-child(3) {
+            background: var(--cyan-light);
+            animation: wave-move 12s linear infinite;
+            opacity: 0.5;
+            height: 60px;
+        }
+
+        @keyframes wave-move {
+            0% { transform: translateX(0) translate3d(0, 0, 0); }
+            100% { transform: translateX(-50%) translate3d(0, 0, 0); }
+        }
+        
+        /* Ana İçerik Konumlandırması */
+        .main-content {
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Vurgulu Buton Stili */
+        .accent-button {
+            border: 1px solid var(--cyan-light);
+            color: var(--cyan-light);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 5px rgba(100, 255, 218, 0.2); 
+        }
+        .accent-button:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.6);
+            transform: translateY(-2px);
+        }
+
+        /* Navigasyon linklerini sola itmek için */
+        .nav-links-shift-left {
+            margin-right: 20px;
+        }
+
+        /* Kenar Animasyon Çizgileri */
+        @keyframes glow-scroll {
+            0% { transform: translateY(100vh); }
+            100% { transform: translateY(-100vh); }
+        }
+
+        .edge-glow-line {
+            position: fixed;
+            top: 0;
+            width: 2px;
+            height: 100vh;
+            opacity: 0.1;
+            z-index: 5;
+            overflow: hidden;
+        }
+
+        .edge-glow-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40vh;
+            background: linear-gradient(to bottom, transparent 0%, var(--cyan-light) 50%, transparent 100%);
+            animation: glow-scroll 15s linear infinite;
+        }
+
+        .edge-left { left: 20px; }
+        .edge-right { right: 20px; }
+
+        /* --- YENİ: Akışkan Dalga Animasyonu (Ekran Baştan Sona) --- */
+        @keyframes flowing-wave {
+            0% {
+                transform: translate3d(0, -100%, 0) rotate(15deg); /* Başlangıç: Üstten, sağda, hafif eğik */
+                opacity: 0;
+            }
+            25% {
+                opacity: 0.3; /* Dalga belirginleşir */
+            }
+            75% {
+                opacity: 0.3; /* Dalga belirgin kalır */
+            }
+            100% {
+                transform: translate3d(-100vw, 100%, 0) rotate(15deg); /* Bitiş: Alttan, solda, hafif eğik */
+                opacity: 0;
+            }
+        }
+
+        .flowing-wave-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            pointer-events: none; /* Etkileşimi engelle, içeriğin önüne geçmesin */
+            z-index: 1; /* Dalga (0) ile içerik (10) arasında */
+            opacity: 0.2; /* Genel opaklık */
+        }
+
+        .flowing-wave-element {
+            position: absolute;
+            top: 0;
+            right: 0; /* Sağdan başla */
+            width: 150vw; /* Ekran genişliğinden daha geniş dalga */
+            height: 300px; /* Dalganın yüksekliği */
+            background: radial-gradient(circle at 75% 50%, var(--cyan-light) 0%, transparent 70%); /* Dalga şekli ve degrade */
+            filter: blur(50px); /* Bulanıklık efekti */
+            animation: flowing-wave 30s linear infinite; /* Animasyon hızı */
+            transform-origin: 0 0; /* Transformasyonun başlangıç noktası */
+        }
+        
+        .flowing-wave-element:nth-child(2) {
+            animation-delay: -15s; /* İkinci dalga yarı yolda başlar */
+            animation-duration: 35s; /* Biraz farklı hız */
+            opacity: 0.8; /* Biraz daha belirgin */
+            transform: translate3d(0, -100%, 0) rotate(10deg); /* Başlangıç eğimini değiştir */
+            background: radial-gradient(circle at 25% 50%, var(--text-primary) 0%, transparent 70%); /* Farklı bir degrade */
+        }
+
+        .flowing-wave-element:nth-child(3) {
+            animation-delay: -5s; /* Üçüncü dalga farklı zamanda başlar */
+            animation-duration: 25s; /* Biraz farklı hız */
+            opacity: 0.6; /* Biraz daha belirgin */
+            transform: translate3d(0, -100%, 0) rotate(20deg); /* Başlangıç eğimini değiştir */
+            background: radial-gradient(circle at 50% 50%, var(--cyan-light) 0%, transparent 70%); /* Farklı bir degrade */
+        }
+
+
+    </style>
+</head>
+<body class="min-h-screen">
+    
+    <!-- Alttaki Sabit Dalgalı Arkaplan Animasyonu (Mevcut) --><div class="wave-container">
+        <div class="wave" style="bottom: 0px; opacity: 0.2; transform: scaleY(2) translate3d(0, 0, 0);"></div>
+        <div class="wave" style="bottom: 5px; opacity: 0.15; transform: scaleY(2) translate3d(0, 0, 0);"></div>
+        <div class="wave" style="bottom: 10px; opacity: 0.1; transform: scaleY(2) translate3d(0, 0, 0);"></div>
+    </div>
+    
+    <!-- YENİ: Soldan Sağdan gelen Dalga Animasyonu --><div class="edge-glow-line edge-left"></div>
+    <div class="edge-glow-line edge-right"></div>
+
+    <!-- YENİ: Ekran Baştan Sona Akışkan Dalga Animasyonu --><div class="flowing-wave-container">
+        <div class="flowing-wave-element"></div>
+        <div class="flowing-wave-element"></div>
+        <div class="flowing-wave-element"></div>
+    </div>
+    
+    <div class="main-content">
+        
+        <!-- Üst Navigasyon --><nav class="p-6 flex justify-end items-center fixed top-0 w-full bg-transparent z-50">
+            <!-- Navigasyon linkleri div'ine yeni sınıf eklendi --><div class="space-x-8 hidden md:flex nav-links-shift-left"> 
+                <a href="#hakkimda" class="text-sm font-medium text-white transition duration-300 hover:text-cyan-400">Hakkımda</a>
+                <a href="#projeler" class="text-sm font-medium text-white transition duration-300 hover:text-cyan-400">Projeler</a>
+                <a href="#iletisim" class="text-sm font-medium text-white transition duration-300 hover:text-cyan-400">İletişim</a>
+            </div>
+            <button class="md:hidden text-white hover:text-cyan-400 focus:outline-none">
+                <!-- Hamburger Icon --><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </nav>
+        
+        <!-- Ana Bölüm (Hero) --><header id="ana" class="min-h-screen flex items-center justify-center pt-24 pb-12 text-center p-4" style="text-align: center;">
+            <div class="max-w-4xl w-full mx-auto">
+                <!-- Küçük Selamlama --><p class="text-xl text-cyan-light mb-4 font-mono animate-pulse">Merhaba, benim adım</p>
+                
+                <!-- İsim ve Soyisim --><h1 class="text-6xl font-extrabold text-primary leading-tight mb-2" style="font-size: 3.75rem;">
+                    <span class="neon-text">ABDULLAH TALHA</span>
+                    <span class="block text-primary">ÇALIŞKAN</span>
+                </h1>
+                
+                <!-- Kısa Açıklama -->
+                <h2 class="text-3xl font-semibold text-text-secondary mb-8" style="font-size: 1.875rem;">
+                    Bilgisayar dünyasını keşfetmeye çıkmış bir genç.
+                </h2>
+                
+                <!-- Ana CTA Butonu --><a href="#projeler" class="inline-block px-8 py-3 rounded-md text-lg font-medium accent-button mt-4">
+                    Projelerimi Keşfet
+                </a>
+            </div>
+        </header>
+        
+        <!-- Hakkımda Bölümü --><section id="hakkimda" class="py-24 max-w-4xl mx-auto p-4">
+            <h3 class="text-3xl font-bold mb-12 flex items-center" style="font-size: 1.875rem;">
+                <span class="neon-text mr-3">01.</span> Hakkımda
+                <span class="ml-4 h-px bg-text-secondary flex-grow" style="opacity: 0.3;"></span>
+            </h3>
+            
+            <div class="text-lg space-y-4" style="color: var(--text-secondary);">
+                <p>
+                    Merhaba! Ben Abdullah Talha Çalışkan. Yazılım geliştirmeye olan tutkum, beni sürekli yeni teknolojiler öğrenmeye ve yaratıcı çözümler üretmeye itiyor. Özellikle web ve mobil uygulamalar üzerine odaklanarak, kullanıcı deneyimini ön planda tutan dinamik projeler geliştirmeyi seviyorum.
+                </p>
+                <p>
+                    Teknik becerilerim arasında JavaScript, React, Node.js ve modern CSS çerçeveleri bulunuyor. Bir projeye başlarken, sadece işlevselliğe değil, aynı zamanda estetiğe ve performansa da önem veriyorum.
+                </p>
+                <p>
+                    Boş zamanlarımda, yeni bir dil öğrenmek, karmaşık algoritmaları çözmek ve dijital sanatla ilgilenmek beni motive ediyor.
+                </p>
+            </div>
+        </section>
+        
+        <!-- Projeler Bölümü --><section id="projeler" class="py-24 max-w-4xl mx-auto p-4">
+            <h3 class="text-3xl font-bold mb-12 flex items-center" style="font-size: 1.875rem;">
+                <span class="neon-text mr-3">02.</span> Öne Çıkan Projeler
+                <span class="ml-4 h-px bg-text-secondary flex-grow" style="opacity: 0.3;"></span>
+            </h3>
+            
+            <div class="space-y-12">
+                <!-- Proje Kartı 1 --><div class="p-6 rounded-xl transition duration-300" style="background-color: rgba(31, 41, 55, 0.3); border-radius: 0.75rem; transition: all 0.3s ease;">
+                    <h4 class="text-2xl font-semibold neon-text mb-2" style="font-size: 1.5rem;">Dinamik Görev Yöneticisi</h4>
+                    <p class="mb-4" style="color: var(--text-secondary);">React ve Firebase kullanılarak geliştirilmiş, gerçek zamanlı veri senkronizasyonuna sahip bir görev takip uygulaması. Kullanıcı dostu arayüzü sayesinde verimliliği artırır.</p>
+                    <div class="flex flex-wrap gap-2 text-sm font-mono" style="color: var(--cyan-light); gap: 0.5rem; flex-wrap: wrap; font-size: 0.875rem; font-family: monospace;">
+                        <span class="p-1 rounded" style="background-color: #374151; padding: 0.25rem; border-radius: 0.375rem;">React</span>
+                        <span class="p-1 rounded" style="background-color: #374151; padding: 0.25rem; border-radius: 0.375rem;">Firebase</span>
+                        <span class="p-1 rounded" style="background-color: #374151; padding: 0.25rem; border-radius: 0.375rem;">CSS</span>
+                    </div>
+                </div>
+                
+                <!-- Proje Kartı 2 --><div class="p-6 rounded-xl transition duration-300" style="background-color: rgba(31, 41, 55, 0.3); border-radius: 0.75rem; transition: all 0.3s ease;">
+                    <h4 class="text-2xl font-semibold neon-text mb-2" style="font-size: 1.5rem;">3D Web Grafikleri Simülasyonu</h4>
+                    <p class="mb-4" style="color: var(--text-secondary);">Three.js kütüphanesi ile hazırlanmış, interaktif ve yüksek performanslı bir gezegen sistemi simülasyonu. Kullanıcının kamera açısını değiştirmesine izin verir.</p>
+                    <div class="flex flex-wrap gap-2 text-sm font-mono" style="color: var(--cyan-light); gap: 0.5rem; flex-wrap: wrap; font-size: 0.875rem; font-family: monospace;">
+                        <span class="p-1 rounded" style="background-color: #374151; padding: 0.25rem; border-radius: 0.375rem;">JavaScript</span>
+                        <span class="p-1 rounded" style="background-color: #374151; padding: 0.25rem; border-radius: 0.375rem;">Three.js</span>
+                        <span class="p-1 rounded" style="background-color: #374151; padding: 0.25rem; border-radius: 0.375rem;">WebGL</span>
+                    </div>
+                </div>
+                
+                <!-- Tüm Projelere Git Butonu (Görünümü düzeltildi) --><div class="text-center pt-8" style="text-align: center; padding-top: 2rem;">
+                    <!-- Buton, ana CTA ile aynı stili kullanacak şekilde <a> etiketi ve daha belirgin boyuta çevrildi. --><a href="#" class="px-8 py-3 rounded-md text-lg font-medium accent-button inline-block transition duration-300">
+                        Tüm Projeleri Gör
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- İletişim Bölümü --><section id="iletisim" class="py-24 max-w-2xl mx-auto text-center p-4">
+            <h3 class="text-3xl font-bold mb-4 flex justify-center items-center" style="font-size: 1.875rem;">
+                <span class="neon-text mr-3">03.</span> İletişime Geçelim
+            </h3>
+            <p class="text-xl mb-8" style="font-size: 1.25rem; color: var(--text-secondary);">
+                Yeni bir proje fikriniz mi var? Ya da sadece merhaba mı demek istiyorsunuz?
+            </p>
+            
+            <a href="mailto:bilgisayarciapo38@gmail.com" class="inline-block px-10 py-4 rounded-md text-xl font-semibold shadow-lg" style="background-color: var(--cyan-light); color: #111827; transition: all 0.3s ease; font-size: 1.25rem; font-weight: 600; padding: 1rem 2.5rem; border-radius: 0.375rem;">
+                Bana Mail Gönder
+            </a>
+            
+        </section>
+        
+        <!-- Alt Bilgi --><footer class="py-8 text-center text-sm" style="color: var(--text-secondary); padding-top: 2rem; padding-bottom: 2rem; font-size: 0.875rem; text-align: center;">
+            <p>&copy; 2024 Abdullah Talha Çalışkan. Lacivert Temalı Portfolio.</p>
+        </footer>
+        
+    </div>
+</body>
+</html>
