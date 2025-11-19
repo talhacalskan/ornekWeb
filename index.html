@@ -296,6 +296,26 @@
             background: radial-gradient(circle at 50% 50%, var(--cyan-light) 0%, transparent 70%); /* Farklı bir degrade */
         }
 
+        /* Profil Fotoğrafı Stili */
+        .profile-photo {
+            position: absolute; /* Mutlak konumlandırma */
+            top: 50px; /* Üstten boşluk */
+            left: 50px; /* Soldan boşluk */
+            width: 100px; /* Genişlik */
+            height: 100px; /* Yükseklik */
+            border-radius: 50%; /* Yuvarlak şekil */
+            object-fit: cover; /* Resmi kutuya sığdır */
+            border: 3px solid var(--cyan-light); /* Çerçeve */
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.7); /* Parlak gölge */
+            z-index: 20; /* Navigasyon ve animasyonların üzerinde */
+            transform: rotate(-5deg); /* Hafif bir eğim */
+            transition: transform 0.3s ease; /* Hover efekti için geçiş */
+        }
+
+        .profile-photo:hover {
+            transform: rotate(0deg) scale(1.05); /* Hoverda düzleşip büyüme */
+        }
+        
 
     </style>
 </head>
@@ -318,6 +338,8 @@
     
     <div class="main-content">
         
+        <!-- YENİ: Profil Fotoğrafı --><img src="https://github.com/talhacalskan/ornekWeb/raw/main/src/images/Profifoto.jpeg" alt="Profil Fotoğrafı" class="profile-photo">
+
         <!-- Üst Navigasyon --><nav class="p-6 flex justify-end items-center fixed top-0 w-full bg-transparent z-50">
             <!-- Navigasyon linkleri div'ine yeni sınıf eklendi --><div class="space-x-8 hidden md:flex nav-links-shift-left"> 
                 <a href="#hakkimda" class="text-sm font-medium text-white transition duration-300 hover:text-cyan-400">Hakkımda</a>
@@ -338,13 +360,12 @@
                     <span class="block text-primary">ÇALIŞKAN</span>
                 </h1>
                 
-                <!-- Kısa Açıklama -->
-                <h2 class="text-3xl font-semibold text-text-secondary mb-8" style="font-size: 1.875rem;">
+                <!-- Kısa Açıklama --><h2 class="text-3xl font-semibold text-text-secondary mb-8" style="font-size: 1.875rem;">
                     Bilgisayar dünyasını keşfetmeye çıkmış bir genç.
                 </h2>
                 
                 <!-- Ana CTA Butonu --><a href="#projeler" class="inline-block px-8 py-3 rounded-md text-lg font-medium accent-button mt-4">
-                    Projelerimi Keşfet
+                    Keşfe
                 </a>
             </div>
         </header>
@@ -397,7 +418,7 @@
                 
                 <!-- Tüm Projelere Git Butonu (Görünümü düzeltildi) --><div class="text-center pt-8" style="text-align: center; padding-top: 2rem;">
                     <!-- Buton, ana CTA ile aynı stili kullanacak şekilde <a> etiketi ve daha belirgin boyuta çevrildi. --><a href="#" class="px-8 py-3 rounded-md text-lg font-medium accent-button inline-block transition duration-300">
-                        Tüm Projeleri Gör
+                        Keşfe
                     </a>
                 </div>
             </div>
@@ -418,7 +439,7 @@
         </section>
         
         <!-- Alt Bilgi --><footer class="py-8 text-center text-sm" style="color: var(--text-secondary); padding-top: 2rem; padding-bottom: 2rem; font-size: 0.875rem; text-align: center;">
-            <p>&copy; 2024 Abdullah Talha Çalışkan. Lacivert Temalı Portfolio.</p>
+            <p>&copy; 2024 Abdullah Talha Çalışkan.</p>
         </footer>
         
     </div>
